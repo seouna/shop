@@ -7,9 +7,6 @@ import Navbar from 'react-bootstrap/Navbar';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import shoe1 from './img/shoe1.jpg';
-import shoe2 from './img/shoe2.jpg';
-import shoe3 from './img/shoe3.jpg';
 import { useState } from 'react';
 import data from './data.js';
 
@@ -64,11 +61,20 @@ function App() {
             <p>{shoes[2].content}</p>
           </Col> */}
 
-
+{/*           
           <Card src={shoe1} shoes={shoes[0]} i={1} />
           <Card src={shoe2} shoes={shoes[1]} i={2}/>
-          <Card src={shoe3} shoes={shoes[2]} i={3}/>
+          <Card src={shoe3} shoes={shoes[2]} i={3}/> */}
 
+
+          {
+            shoes.map((a,i)=>{
+
+              return(
+                <Card shoes={shoes[i]} i={i} />
+              )
+            })
+          }
         </Row>
       </Container>
           
@@ -76,13 +82,13 @@ function App() {
     </div>
   );
 }
-
+// + props.i+1 + '.jpg'
 
 function Card(props){
   return(
     <>
       <Col sm>
-        <img src={props.src}></img>
+        <img src={ process.env.PUBLIC_URL + '/shoe'+(props.i+1)+'.jpg'}></img>
         <h4>{props.shoes.title}</h4>
         <p>{props.shoes.price}</p>
       </Col>
