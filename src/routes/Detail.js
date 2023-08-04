@@ -61,9 +61,10 @@ let Box = styled.div`
 function Detail(props){
 
   //동적UI
-  let [alert,setAlert] = useState(true);
+  let [timeAlert,setTimeAlert] = useState(true);
   let [count, setCount] = useState(0);
-
+  let [amount,setAmount] = useState('');
+  let [text,setText] = useState('');
   // 2. 갈고리 다는법!
   // mount, update시 코드 실행해주는 useEffect
   // 실행시점 : 렌더링이 완료된 후 동작
@@ -78,18 +79,24 @@ function Detail(props){
     //   console.log(1);  
     // }
 
+    if (isNaN(amount) == true){
+      alert('숫자만 입력해주세욧');
+      setAmount('');
+    }
     
-    let a = setTimeout(() => { setAlert(false) }, 2000)
+    let a = setTimeout(() => { setTimeAlert(false) }, 2000)
     // return : useEffect 실행전에 사용
     // 타이머같은거 쓸때 기존타이머를 제거하고 사용
     return ()=>{
       clearTimeout(a);
+     
     }
-  },[]) 
+
+  
+  },[amount]) 
   //dependency [ state,변수넣을수 있음]
   //mount, update 될때 실행되는데 dependency 추가하면 해당변수가 변경될때만 실행 
   // [] 1회만 사용하고싶을때
-
 
 
   let { id } = useParams();
@@ -99,11 +106,13 @@ function Detail(props){
   // arrow function 에서 return 과 중괄호 동시에 생략가능
   let shoes = props.shoes.find((x) => x.id == id)
   
+  
+ 
 
     return(
     <>
       {
-        alert == true 
+        timeAlert == true 
           ? <Box clssName="alert alert-warning">
               2초이내 구매시 할인
             </Box>
@@ -114,9 +123,6 @@ function Detail(props){
       <div className='container'>
         {/* <YellowBtn bg="yellow">버튼</YellowBtn>
         <YellowBtn bg="blue">버튼</YellowBtn> */}
-
-       
-
         {count}<button onClick={()=>{ setCount(count+1) }}> 버튼 </button>
         <div className='row'>
           <div className='col-md-6'>
@@ -126,15 +132,29 @@ function Detail(props){
             <h4 className='pt-5'>{ shoes.title }</h4>
             <p>{ shoes.content }</p>
             <p>{ shoes.price }</p>
+            <p>수량 : <input placeholder="수량을 입력해주세요" onChange={(e)=>{setAmount(e.target.value)}} value={amount}></input></p>
             <button className='btn btn-danger'>주문하기</button>
           </div>
         </div>
       </div>
     </>
-      
-    
 
     )
   }
 
   export default Detail
+
+  /*
+    useEffect
+
+    useEffect(() => { })      // 1. 재렌더링마다 코드를 실행할때
+    useEffect(() => { }, [])  // 2.mount시 1회 코드실행하고싶을떄
+    useEffect(() => {
+      return () =>{
+        //3. unmount시 1회 코드실행하고싶을떄
+        //4. clean 
+      }
+    },[ 5. 특정 state변경시 실생])
+
+  
+  */
