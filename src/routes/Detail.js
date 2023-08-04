@@ -1,13 +1,25 @@
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 
+// -------- styled-components -------------
 //style 이 입혀진 컴포넌트 생성
-// 여기서 쓴 CSS 는 다른 JS파일 간섭하지 않음
+// 2.여기서 쓴 CSS 는 다른 JS파일 간섭하지 않음
+// 간섭방지하려면 컴포넌트명.module.css 파일생성해서 쓰기!
+// 3.로딩시간 단축
+
+//단점 
+// js 복잡
+// 중복스타일은 컴포넌트간 import 할텐데 css랑 다를게없음
+// css 담당할사람이 없을때 상관없지만. . 협업할떄 이슈
 let YellowBtn = styled.button`
-  background : yellow;
-  color : black;
-  padding : 10px;
+  background : ${ props => props.bg };
+  color : ${ props => props.bg == 'blue' ? 'white' : 'black'};
+  padding : 5px 15px;
+  margin-right : 10px;
+  border : none;
+  border-radius : 10px ;
 `
+// 오렌지색 버튼이 필요하다면 props 문법사용
 
 let Box = styled.div`
   background : grey;
@@ -26,9 +38,8 @@ function Detail(props){
 
       
       <div className='container'>
-        <Box>
-          <YellowBtn>버튼</YellowBtn>
-        </Box>
+        {/* <YellowBtn bg="yellow">버튼</YellowBtn>
+        <YellowBtn bg="blue">버튼</YellowBtn> */}
         <div className='row'>
           <div className='col-md-6'>
             <img src={ process.env.PUBLIC_URL + '/shoe' + (parseInt(id)+1) + '.jpg' }/>
