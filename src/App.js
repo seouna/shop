@@ -16,6 +16,7 @@ function App() {
 
   //훅 페이지 이동도와주는 함수
   let navigate = useNavigate();   
+  let [shoes] = useState(data);
 
   return (
     <div className="App">
@@ -35,8 +36,10 @@ function App() {
 
 
       <Routes>
-        <Route path="/" element = {<Main/>} />
-        <Route path="/detail" element = { <Detail/>} />
+        <Route path="/" element = {<Main shoes={shoes}/>} />
+
+        {/* URL파라미터 사용 */}
+        <Route path="/detail/:id" element = { <Detail shoes={shoes}/>} />
 
 
         {/* <Route path="/about" element={<About/>} />
@@ -81,9 +84,9 @@ function Card(props){
 
 
 //메인 컴포넌트
-function Main(){
+function Main(props){
 
-  let [shoes] = useState(data);
+  
 
   return(
     <>
@@ -128,9 +131,9 @@ function Main(){
 
 
         {
-          shoes.map((a,i)=>{
+          props.shoes.map((a,i)=>{
             return(
-              <Card shoes={shoes[i]} i={i} />
+              <Card shoes={props.shoes[i]} i={i} />
             )
           })
         }
