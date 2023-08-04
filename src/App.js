@@ -9,10 +9,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState } from 'react';
 import data from './data.js';
-import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail';
 
 function App() {
+
+
 
   //훅 페이지 이동도와주는 함수
   let navigate = useNavigate();   
@@ -74,9 +76,11 @@ function Card(props){
   return(
     <>
       <Col sm>
-        <img src={ process.env.PUBLIC_URL + '/shoe'+(props.i+1)+'.jpg'}></img>
-        <h4>{props.shoes.title}</h4>
-        <p>{props.shoes.price}</p>
+        <Link to={'/detail/'+props.i}>
+          <img src={ process.env.PUBLIC_URL + '/shoe'+(props.i+1)+'.jpg'}></img>
+          <h4>{props.shoes.title}</h4>
+          <p>{props.shoes.price}</p>
+        </Link>
       </Col>
     </>
   );
@@ -133,7 +137,8 @@ function Main(props){
         {
           props.shoes.map((a,i)=>{
             return(
-              <Card shoes={props.shoes[i]} i={i} />
+              
+              <Card shoes={props.shoes[i]} i={i}/>
             )
           })
         }
