@@ -126,7 +126,7 @@ function Detail(props){
         {count}<button onClick={()=>{ setCount(count+1) }}> 버튼 </button>
         <div className='row'>
           <div className='col-md-6'>
-            <img src={ process.env.PUBLIC_URL + '/shoe' + (parseInt(id)+1) + '.jpg' }/>
+            <img src={ process.env.PUBLIC_URL + '/img/shoe' + (parseInt(id)+1) + '.jpg' }/>
           </div>
           <div className='col-md-6'>
             <h4 className='pt-5'>{ shoes.title }</h4>
