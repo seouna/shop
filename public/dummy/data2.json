@@ -16,5 +16,11 @@
     "title" : "Red Herring",
     "content" : "Born in France",
     "price" : 120000
+  },
+  {
+    "id" : 6,
+    "title" : "Red Herring",
+    "content" : "Born in France",
+    "price" : 120000
   }
 ]

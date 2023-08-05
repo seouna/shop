@@ -48,7 +48,7 @@ function App() {
 
 
       <Routes>
-        <Route path="/" element = {<Main shoes={shoes}/>} />
+        <Route path="/" element = {<Main shoes={shoes} setShoes={setShoes}/>} />
 
         {/* URL파라미터 사용 */}
         <Route path="/detail/:id" element = { <Detail shoes={shoes}/>} />
@@ -71,16 +71,7 @@ function App() {
 
       {/* <div className="main-bg" style={ {backgroundImage : 'url('+ bg +')' }}></div> */}
      
-      <WhiteBtn onClick={()=>{
-        axios.get('/dummy/data2.json')
-        .then((res)=>{ 
-          let copy = [...shoes, ...res.data];
-          setShoes(copy);
-        })
-        .catch(()=>{
-          console.log('실패');
-        })
-      }}>M O R E</WhiteBtn>    
+     
   
     </div>
   );
@@ -168,6 +159,20 @@ function Main(props){
       </Row>
       
     </Container>
+    <WhiteBtn onClick={()=>{
+        axios.get('/dummy/data2.json')
+        .then((res)=>{ 
+          let copy = [...props.shoes, ...res.data];
+          props.setShoes(copy);
+        })
+        .catch(()=>{
+          console.log('실패');
+        })
+
+        
+      }}>M O R E</WhiteBtn>    
+
+
     {/*
     -- ajax 옵션3
     1. XMLHttpRequest
