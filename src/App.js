@@ -11,6 +11,16 @@ import { useState } from 'react';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail';
+import styled from "styled-components"
+import axios from 'axios';
+
+let WhiteBtn = styled.button`
+  background : 'white';
+  color : 'black';
+  padding : 5px 55px;
+  margin-right : 10px;
+  border : 1px solid #797979;
+`
 
 function App() {
 
@@ -18,7 +28,7 @@ function App() {
 
   //훅 페이지 이동도와주는 함수
   let navigate = useNavigate();   
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
 
   return (
     <div className="App">
@@ -56,13 +66,21 @@ function App() {
           <Route path="member" element={<div>member</div>} />
           <Route path="loctation" element={<About/>} />
         </Route>
-
         <Route path="*" element = { <div> <h1>없는 페이지</h1> </div>} />
       </Routes>
 
       {/* <div className="main-bg" style={ {backgroundImage : 'url('+ bg +')' }}></div> */}
      
-          
+      <WhiteBtn onClick={()=>{
+        axios.get('/dummy/data2.json')
+        .then((res)=>{ 
+          let copy = [...shoes, ...res.data];
+          setShoes(copy);
+        })
+        .catch(()=>{
+          console.log('실패');
+        })
+      }}>M O R E</WhiteBtn>    
   
     </div>
   );
@@ -77,7 +95,7 @@ function Card(props){
     <>
       <Col sm>
         <Link to={'/detail/'+props.i}>
-          <img src={ process.env.PUBLIC_URL + '/shoe'+(props.i+1)+'.jpg'}></img>
+          <img src={ process.env.PUBLIC_URL + '/img/shoe'+(props.i+1)+'.jpg'}></img>
           <h4>{props.shoes.title}</h4>
           <p>{props.shoes.price}</p>
         </Link>
@@ -135,15 +153,29 @@ function Main(props){
 
 
         {
-          props.shoes.map((a,i)=>{
-            return(
-              
-              <Card shoes={props.shoes[i]} i={i}/>
-            )
-          })
-        }
+          props.shoes.map((shoe, i) => {
+            if (i % 3 === 0) {
+            return (
+              <Row key={i}>
+                <Card shoes={shoe} i={i} />
+                {props.shoes[i + 1] && <Card shoes={props.shoes[i + 1]} i={i + 1} />}
+                {props.shoes[i + 2] && <Card shoes={props.shoes[i + 2]} i={i + 2} />}
+              </Row>
+            );
+          }
+          return null;
+        })}
       </Row>
+      
     </Container>
+    {/*
+    -- ajax 옵션3
+    1. XMLHttpRequest
+    2. fecth()
+    3. axios ( npm install axios )
+    
+    */}
+   
     </>
 
   )
