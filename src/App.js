@@ -94,13 +94,8 @@ function Card(props){
     </>
   );
 }
-
-
 //메인 컴포넌트
 function Main(props){
-
-  
-
   return(
     <>
     <div className="main-bg"></div>
@@ -168,11 +163,7 @@ function Main(props){
         .catch(()=>{
           console.log('실패');
         })
-
-        
       }}>M O R E</WhiteBtn>    
-
-
     {/*
     -- ajax 옵션3
     1. XMLHttpRequest
@@ -180,9 +171,7 @@ function Main(props){
     3. axios ( npm install axios )
     
     */}
-   
     </>
-
   )
 }
 
