@@ -8,17 +8,11 @@
   {
     "id" : 4,
     "title" : "Baby shoes",
-    "content" : "for less than 6",
+    "content" : "for less than",
     "price" : 120000
   },
   {
     "id" : 5,
-    "title" : "Red Herring",
-    "content" : "Born in France",
-    "price" : 120000
-  },
-  {
-    "id" : 6,
     "title" : "Red Herring",
     "content" : "Born in France",
     "price" : 120000

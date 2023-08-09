@@ -96,6 +96,9 @@ function Card(props){
 }
 //메인 컴포넌트
 function Main(props){
+
+  let [count,setCount] = useState(0);
+
   return(
     <>
     <div className="main-bg"></div>
@@ -154,16 +157,36 @@ function Main(props){
       </Row>
       
     </Container>
-    <WhiteBtn onClick={()=>{
-        axios.get('/dummy/data2.json')
-        .then((res)=>{ 
-          let copy = [...props.shoes, ...res.data];
-          props.setShoes(copy);
-        })
-        .catch(()=>{
-          console.log('실패');
-        })
-      }}>M O R E</WhiteBtn>    
+    {
+
+      // count < 2 && (
+        <WhiteBtn onClick={() => {
+            // 로딩중 UI 띄우기
+            let url = '/dummy/data2.json';
+            if (count == 1) {
+              url = '/dummy/data3.json';
+            } 
+            setCount(count + 1);
+            console.log("눌렀을때" + count);
+
+            axios
+              .get(url)
+              .then((res) => {
+                let copy = [...props.shoes, ...res.data];
+                props.setShoes(copy);
+                
+                // 로딩중 UI 숨기기
+              })
+              .catch(() => {
+                console.log('실패');
+              });
+          }}
+        >
+          M O R E
+        </WhiteBtn>
+      // )
+    }
+
     {/*
     -- ajax 옵션3
     1. XMLHttpRequest
@@ -179,6 +202,14 @@ function About(){
   return(
     <div>
       <h4>회사정보</h4>
+    </div>
+  )
+}
+
+function AlertMore(){
+  return(
+    <div>
+      <h3>상품이 더 이상 존재하지 않습니다.</h3>
     </div>
   )
 }
