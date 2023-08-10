@@ -98,7 +98,7 @@ function Card(props){
 function Main(props){
 
   let [count,setCount] = useState(0);
-
+  let [visible,setVisible] = useState(true);
   return(
     <>
     <div className="main-bg"></div>
@@ -159,15 +159,20 @@ function Main(props){
     </Container>
     {
 
-      // count < 2 && (
+      count < 2 && (
         <WhiteBtn onClick={() => {
-            // 로딩중 UI 띄우기
+
             let url = '/dummy/data2.json';
             if (count == 1) {
               url = '/dummy/data3.json';
             } 
             setCount(count + 1);
             console.log("눌렀을때" + count);
+
+            setVisible(!visible);
+            // 로딩중 UI 띄우기
+            <Loding/>
+
 
             axios
               .get(url)
@@ -180,11 +185,26 @@ function Main(props){
               .catch(() => {
                 console.log('실패');
               });
+
+              //post 요청
+              // axios.post('/',{ : })
+
+
+              //동시에 ajax 여러개
+              // Promise.all([axios.get('/url'), axios.get('/url2')])
+              // .then(() => {
+
+              // })
+
+              
+              // get요청
+              //fetch('/').then(data => {})
+
           }}
         >
           M O R E
         </WhiteBtn>
-      // )
+      )
     }
 
     {/*
@@ -210,6 +230,14 @@ function AlertMore(){
   return(
     <div>
       <h3>상품이 더 이상 존재하지 않습니다.</h3>
+    </div>
+  )
+}
+
+function Loding(){
+  return(
+    <div>
+      <h1>Loding</h1>
     </div>
   )
 }
