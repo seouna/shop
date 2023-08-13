@@ -2,8 +2,8 @@ import { useState } from "react"
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
-
-
+import Nav from 'react-bootstrap/Nav';
+import '../css/sub.css';
   /* 
   
    컴포넌트의 Lifecycle
@@ -124,7 +124,7 @@ function Detail(props){
         {/* <YellowBtn bg="yellow">버튼</YellowBtn>
         <YellowBtn bg="blue">버튼</YellowBtn> */}
         {count}<button onClick={()=>{ setCount(count+1) }}> 버튼 </button>
-        <div className='row'>
+        <div className='row detail-con'>
           <div className='col-md-6'>
             <img src={ process.env.PUBLIC_URL + '/img/shoe' + (parseInt(id)+1) + '.jpg' }/>
           </div>
@@ -136,10 +136,33 @@ function Detail(props){
             <button className='btn btn-danger'>주문하기</button>
           </div>
         </div>
+        <DetailTab></DetailTab>
       </div>
     </>
 
     )
+  }
+
+
+  function DetailTab() {
+    return (
+      <Nav fill variant="tabs" defaultActiveKey="/home">
+        <Nav.Item>
+          <Nav.Link href="/home">Active</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-1">Loooonger NavLink</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-2">Link</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="disabled" disabled>
+            Disabled
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+    );
   }
 
   export default Detail
