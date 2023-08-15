@@ -60,6 +60,22 @@ let Box = styled.div`
 
 function Detail(props){
 
+  let [fade2,setFade2] = useState('');
+    
+
+  useEffect(()=>{
+    // automatic batching 기능
+    // state 변경이된뒤 동작 ( 한번에 동작하려고 하기 떄문에 )
+    // setTimeout으로 시간차를 주고 사용
+
+    //end 클래스 붙이기
+    let a = setTimeout(()=>{setFade2('end');},100)
+    return () => {
+      clearTimeout(a)
+      setFade2('');
+    }
+  },[])
+
   //동적UI
   let [timeAlert,setTimeAlert] = useState(true);
   let [count, setCount] = useState(0);
@@ -120,7 +136,7 @@ function Detail(props){
 
       }
       
-      <div className='container'>
+      <div className={'container start ' + fade2}>
         {/* <YellowBtn bg="yellow">버튼</YellowBtn>
         <YellowBtn bg="blue">버튼</YellowBtn> */}
         {count}<button onClick={()=>{ setCount(count+1) }}> 버튼 </button>
@@ -145,24 +161,60 @@ function Detail(props){
 
 
   function DetailTab() {
+
+    let [tab,setTab] = useState(0);
+
     return (
+      <>
       <Nav fill variant="tabs" defaultActiveKey="/home">
         <Nav.Item>
-          <Nav.Link href="/home">Active</Nav.Link>
+          <Nav.Link onClick={()=>{setTab(0)}} eventKey="link-0">버튼 0 </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link-1">Loooonger NavLink</Nav.Link>
+          <Nav.Link onClick={()=>{setTab(1)}} eventKey="link-1">버튼 1</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link-2">Link</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="disabled" disabled>
-            Disabled
-          </Nav.Link>
+          <Nav.Link onClick={()=>{setTab(2)}} eventKey="link-2">버튼 2</Nav.Link>
         </Nav.Item>
       </Nav>
+      <TabContent tab={tab} />
+      </>
+     
     );
+  }
+
+
+  function TabContent({tab}){
+    // if ( tab == 0 ){
+    //   return <div>내용0</div>
+    // }
+
+    // if ( tab == 1 ){
+    //   return <div>내용1</div>
+    // }
+    // if ( tab == 2 ){
+    //   return <div>내용2</div>
+    // }  
+    let [fade,setFade] = useState('');
+    
+
+    useEffect(()=>{
+      // automatic batching 기능
+      // state 변경이된뒤 동작 ( 한번에 동작하려고 하기 떄문에 )
+      // setTimeout으로 시간차를 주고 사용
+
+      //end 클래스 붙이기
+      let a = setTimeout(()=>{setFade('end');},100)
+      return () => {
+        clearTimeout(a)
+        setFade('');
+      }
+    },[tab])
+
+    return (<div className={'start ' + fade}>{
+      [<div>내용0</div>,<div>내용1</div>,<div>내용2</div>][tab]
+    }
+    </div>)
   }
 
   export default Detail
