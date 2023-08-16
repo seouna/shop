@@ -1,9 +1,10 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import Nav from 'react-bootstrap/Nav';
 import '../css/sub.css';
+import {Context1} from './../App.js';
   /* 
   
    컴포넌트의 Lifecycle
@@ -59,6 +60,8 @@ let Box = styled.div`
 `
 
 function Detail(props){
+// useContext 사용
+  let {inventory} = useContext(Context1);
 
   let [fade2,setFade2] = useState('');
     
@@ -123,7 +126,7 @@ function Detail(props){
   let shoes = props.shoes.find((x) => x.id == id)
   
   
- 
+
 
     return(
     <>
@@ -161,7 +164,10 @@ function Detail(props){
 
 
   function DetailTab() {
-
+    // let {inventory} = useContext(Context1);
+    // context API 특징 ( 단점 )
+    // state 변경시 쓸데없는것 까지 재렌더링
+    // 나중에 컴포넌트 재사용이 어려워짐
     let [tab,setTab] = useState(0);
 
     return (
@@ -212,10 +218,13 @@ function Detail(props){
     },[tab])
 
     return (<div className={'start ' + fade}>{
-      [<div>내용0</div>,<div>내용1</div>,<div>내용2</div>][tab]
+      [<div></div>,<div>내용1</div>,<div>내용2</div>][tab]
     }
     </div>)
   }
+  // props 싫으면
+  // 1. context API 
+  // 2. Redux 외부 라이브러리
 
   export default Detail
 

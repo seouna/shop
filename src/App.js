@@ -7,7 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail';
@@ -21,6 +21,8 @@ let WhiteBtn = styled.button`
   margin-right : 10px;
   border : 1px solid #797979;
 `
+export let Context1 = createContext();
+
 
 function App() {
 
@@ -29,7 +31,7 @@ function App() {
   //훅 페이지 이동도와주는 함수
   let navigate = useNavigate();   
   let [shoes, setShoes] = useState(data);
-
+  let [inventory] = useState([10,11,12]);
   return (
     <div className="App">
 
@@ -51,7 +53,12 @@ function App() {
         <Route path="/" element = {<Main shoes={shoes} setShoes={setShoes}/>} />
 
         {/* URL파라미터 사용 */}
-        <Route path="/detail/:id" element = { <Detail shoes={shoes}/>} />
+        <Route path="/detail/:id" element = {
+          <Context1.Provider value={{ inventory }}>
+            <Detail shoes={shoes}/>
+          </Context1.Provider>
+           
+        } />
 
 
         {/* <Route path="/about" element={<About/>} />
@@ -243,3 +250,9 @@ function Loding(){
 }
 
 export default App;
+
+//singlepage appliction 단점 : 컴포넌트간 state 공유어려움
+// 부모컴퍼넌트 > 자식 컴포넌트 props 로 공유
+// app > detail / tabcontent
+// app > tabcontent 로 바로 안됨
+//
