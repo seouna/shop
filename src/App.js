@@ -11,8 +11,9 @@ import { createContext, useState } from 'react';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail';
-import styled from "styled-components"
+import styled from "styled-components";
 import axios from 'axios';
+import Cart from './routes/Cart.js';
 
 let WhiteBtn = styled.button`
   background : 'white';
@@ -43,7 +44,7 @@ function App() {
           <Navbar.Brand href="#home">UNASHOP</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={() =>{navigate('/')}}>Home</Nav.Link>
-            <Nav.Link onClick={() =>{navigate('/detail')}}>Cart</Nav.Link>
+            <Nav.Link onClick={() =>{navigate('/cart')}}>Cart</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -57,9 +58,9 @@ function App() {
           <Context1.Provider value={{ inventory }}>
             <Detail shoes={shoes}/>
           </Context1.Provider>
-           
-        } />
-
+        } 
+        />
+         <Route path="/cart" element={ <Cart></Cart>}></Route>
 
         {/* <Route path="/about" element={<About/>} />
         <Route path="/about/member" element={<About/>} />

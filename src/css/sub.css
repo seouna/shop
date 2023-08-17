@@ -11,3 +11,8 @@
     opacity: 1;
     transition: opacity 0.5s;
 }
+
+
+.cart-table{
+    padding: 20px;
+}
