@@ -5,7 +5,9 @@ function Cart(){
 
     // Redux 사용하면 컴포넌트들이 props 없이 state 공유가능
 
-
+    // Redux props 없이 state를 공유할수 있게 도와주는 라이브러리
+    // npm install @reduxjs/toolkit react-redux
+    // 간단한거 만들때 (컴포넌트 몇개없을때는 ) props 쓰는게 더 간소함
     return (
         <div className="cart-table">
             <h1>CART</h1>
