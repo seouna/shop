@@ -1,5 +1,6 @@
 import { Table } from "react-bootstrap"
 import '../css/sub.css';
+import { useSelector } from "react-redux"
 
 function Cart(){
 
@@ -8,6 +9,9 @@ function Cart(){
     // Redux props 없이 state를 공유할수 있게 도와주는 라이브러리
     // npm install @reduxjs/toolkit react-redux
     // 간단한거 만들때 (컴포넌트 몇개없을때는 ) props 쓰는게 더 간소함
+
+    let  a = useSelector((state) => { return state })
+    console.log(a)
     return (
         <div className="cart-table">
             <h1>CART</h1>
@@ -22,10 +26,10 @@ function Cart(){
                 </thead>
                 <tbody>
                     <tr>
-                    <td>1</td>
-                    <td>가가가</td>
-                    <td>가가가</td>
-                    <td>@가가가</td>
+                    <td>a</td>
+                    <td>a</td>
+                    <td>a</td>
+                    <td>a</td>
                     </tr>
                 </tbody>
             </Table>
